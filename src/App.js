@@ -4,18 +4,11 @@ import {
     ApolloProvider,
     HttpLink,
 } from "@apollo/client";
-import {onError} from "@apollo/client/link/error"
-import GetZeiteintrag from "./Components/GetZeiteintrag";
+import GetTimestamp from "./Components/GetTimestamp";
+import GetCategory from "./Components/GetCategory";
+import SetTimestamp from "./Components/SetTimestamp";
 
-const errorLink = onError(({graphqlErrors, networkError}) => {
-  if (graphqlErrors){
-    graphqlErrors.map(({message, location, path}) => {
-      alert(`graphql error ${message}`)
-    })
-  }
-})
-
-const uri = new HttpLink({ uri: "http://localhost:5000/graphql"})
+const uri = new HttpLink({ uri: "http://localhost:4000/graphql"})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -24,9 +17,9 @@ const client = new ApolloClient({
 
 function App() {
   return <ApolloProvider client={client}>
-  <GetZeiteintrag>
-
-  </GetZeiteintrag>
+    <SetTimestamp></SetTimestamp>
+    <GetTimestamp></GetTimestamp>
+    <GetCategory></GetCategory>
   </ApolloProvider>;
 }
 
