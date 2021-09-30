@@ -6,16 +6,19 @@ function DeleteCategory() {
     const [id, setId] = useState(0)
     const [deleteCategory] = useMutation(DeleteCategoryById)
 
-    return(<div>
+    return (<div>
             <h1>Delete Category by Id</h1>
-            <label>Category Id</label>
-            <input type="number" min="1" onChange={(x)=>{
-                setId(Number(x.target.value));
-            }}/>
-            <button onClick={() => {
-                deleteCategory({variables: {id: Number(id)}})
-                window.location.reload()
-            }}>Delete Category</button>
+            <div className="form">
+                <label>Category Id</label>
+                <input type="number" min="1" onChange={(x) => {
+                    setId(Number(x.target.value));
+                }}/>
+                <button onClick={() => {
+                    deleteCategory({variables: {id: Number(id)}})
+                    window.location.reload()
+                }}>Delete Category
+                </button>
+            </div>
         </div>
     );
 }

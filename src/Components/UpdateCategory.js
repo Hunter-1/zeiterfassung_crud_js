@@ -9,9 +9,9 @@ function UpdateCategory() {
     const [updateCategory] = useMutation(UpdateCategoryById)
 
     return (
-        <div>
+        <div >
             <h1>Update Category</h1>
-            <div>
+            <div className="form">
                 <label>Category Id</label>
                 <input type="number" min="1" onChange={(x)=>{
                     setId(Number(x.target.value));

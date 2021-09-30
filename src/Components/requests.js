@@ -8,6 +8,27 @@ const GetTimestamps = gql`
                 start
                 end
                 description
+                category
+            }
+        }
+    }
+`
+
+const GetTimestampsCategories = gql`
+    query getTimestampsCategories {
+        allTimestamps {
+            nodes {
+                id
+                start
+                end
+                description
+                category
+            }
+        }
+        allCategories{
+            nodes {
+                id
+                name
             }
         }
     }
@@ -122,5 +143,6 @@ export {
     DeleteTimestampById,
     CreateCategory,
     DeleteCategoryById,
-    UpdateCategoryById
+    UpdateCategoryById,
+    GetTimestampsCategories
 }

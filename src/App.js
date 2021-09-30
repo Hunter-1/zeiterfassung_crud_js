@@ -12,6 +12,7 @@ import UpdateTimestamp from "./Components/UpdateTimestamp";
 import SetCategory from "./Components/SetCategory";
 import DeleteCategory from "./Components/DeleteCategory";
 import UpdateCategory from "./Components/UpdateCategory";
+import "./App.css"
 
 
 const Postgraphileuri = new HttpLink({uri: "http://localhost:5000/graphql"})

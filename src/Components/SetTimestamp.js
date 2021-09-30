@@ -39,7 +39,7 @@ function SetTimestamp() {
     return (
         <div>
             <h1>Create Timestamp</h1>
-            <div>
+            <div className="form">
                 <label>
                     Start Time
                 </label>
@@ -54,7 +54,6 @@ function SetTimestamp() {
                        onChange={(x) => {
                     setEnd(x.target.value.toString());
                 }}/>
-                <br/>
                 <label>
                     Description
                 </label>
