@@ -16,8 +16,8 @@ function SetTimestamp() {
     }
     `
     const MutationTimestamp = gql`
-        mutation CreateTimestamp($createTimestamp: CreateTimestamp) {
-            createTimestamp(input: $createTimestamp){
+        mutation CreateTimestamp($input: CreateTimestamp) {
+            createTimestamp(input: $input){
                 start
                 end
                 description
@@ -29,9 +29,7 @@ function SetTimestamp() {
     `
     const {data} = useQuery(GetCategories)
     const [categories, setCategories] = useState([])
-
-    const [createTimestamp, {mutationData, loading, error}] = useMutation(MutationTimestamp,
-    );
+    const [createTimestamp] = useMutation(MutationTimestamp);
 
     useEffect(() => {
         if (data) {
@@ -42,12 +40,12 @@ function SetTimestamp() {
 
     function submitData() {
         const variables = {
-            variables: {
-                input: {
-                    start: start,
-                    end: end,
-                    description: description,
-                    category: category
+            "input": {
+                "start": "1970-01-01T00:00:01",
+                "end": "1970-01-01T00:00:02",
+                "description": "Test Description",
+                "category": {
+                    "id": "1"
                 }
             }
         };
@@ -94,7 +92,9 @@ function SetTimestamp() {
                         <option key={category.id} value={category.id}>{category.name}</option>
                     )}
                 </select>
-                <button onClick={submitData}>create Timestamp</button>
+                <button onClick={() => {
+                    createTimestamp({variables: {input: {start, end, description, category}}})
+                }}>create Timestamp</button>
             </div>
         </div>
     )

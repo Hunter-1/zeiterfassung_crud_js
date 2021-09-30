@@ -4,7 +4,6 @@ const resolvers = {
     Query: {
        categories() {
             return CategoryList;
-
         },
         timestamps() {
             return TimestampList;
