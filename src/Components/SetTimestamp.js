@@ -63,14 +63,14 @@ function SetTimestamp() {
                 <label>
                     Start Time
                 </label>
-                <input type="datetime-local" max="2999-12-31T23:59"
+                <input type="datetime-local" min="1970-00-00T00:00" max="2999-12-31T23:59"
                        onChange={(x) => {
                            setStart(x.target.value.toString());
                        }}/>
                 <label>
                     End Time
                 </label>
-                <input type="datetime-local" max="2999-12-31T23:59"
+                <input type="datetime-local" min="1970-00-00T00:00" max="2999-12-31T23:59"
                        onChange={(x) => {
                     setEnd(x.target.value.toString());
                 }}/>

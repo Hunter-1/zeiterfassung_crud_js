@@ -61,14 +61,15 @@ function UpdateTimestamp() {
                 <label>
                     Start Time
                 </label>
-                <input id="start" type="datetime-local"
+                <input id="start" type="datetime-local" min="1970-00-00T00:00" max="2999-12-31T23:59"
                        onChange={(x) => {
                            setStart(x.target.value.toString());
                        }}/>
                 <label>
                     End Time
                 </label>
-                <input type="datetime-local" onChange={(x) => {
+                <input type="datetime-local" min="1970-00-00T00:00" max="2999-12-31T23:59"
+                       onChange={(x) => {
                     setEnd(x.target.value.toString());
                 }}/>
                 <br/>
