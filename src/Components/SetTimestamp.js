@@ -1,6 +1,17 @@
 import React, {useEffect, useState} from "react"
 import {gql, useMutation, useQuery} from "@apollo/client";
 
+function checkTime(startTime,endTime){
+    const startParsed = Date.parse(startTime);
+    const endParsed = Date.parse(endTime);
+
+    console.log(startTime)
+    console.log(endTime)
+    console.log(startParsed)
+    console.log(endParsed)
+    console.log(startParsed < endParsed)
+    return startParsed < endParsed;
+}
 
 function SetTimestamp() {
     const [start, setStart] = useState("")
@@ -52,14 +63,15 @@ function SetTimestamp() {
                 <label>
                     Start Time
                 </label>
-                <input id="start" type="datetime-local"
+                <input type="datetime-local" max="2999-12-31T23:59"
                        onChange={(x) => {
                            setStart(x.target.value.toString());
                        }}/>
                 <label>
                     End Time
                 </label>
-                <input type="datetime-local" onChange={(x) => {
+                <input type="datetime-local" max="2999-12-31T23:59"
+                       onChange={(x) => {
                     setEnd(x.target.value.toString());
                 }}/>
                 <br/>
@@ -78,8 +90,10 @@ function SetTimestamp() {
                     )}
                 </select>
                 <button onClick={() => {
-                    createTimestamp({variables: {input: {start, end, description, category}}})
-                    window.location.reload();
+                    if (checkTime(start,end)){
+                        createTimestamp({variables: {input: {start, end, description, category}}})
+                        window.location.reload();
+                    }
                 }}>Create Timestamp</button>
             </div>
         </div>
