@@ -38,21 +38,6 @@ function SetTimestamp() {
 
     }, [data]);
 
-    function submitData() {
-        const variables = {
-            "input": {
-                "start": "1970-01-01T00:00:01",
-                "end": "1970-01-01T00:00:02",
-                "description": "Test Description",
-                "category": {
-                    "id": "1"
-                }
-            }
-        };
-        console.log(variables)
-        createTimestamp(variables).then(r => console.log(r));
-    }
-
     function selectCategory() {
         const select = document.getElementById("categories");
         console.log(select.options[select.selectedIndex].value)
@@ -94,6 +79,7 @@ function SetTimestamp() {
                 </select>
                 <button onClick={() => {
                     createTimestamp({variables: {input: {start, end, description, category}}})
+                    window.location.reload();
                 }}>create Timestamp</button>
             </div>
         </div>
