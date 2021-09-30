@@ -13,11 +13,13 @@ import SetCategory from "./Components/SetCategory";
 import DeleteCategory from "./Components/DeleteCategory";
 import UpdateCategory from "./Components/UpdateCategory";
 
-const uri = new HttpLink({ uri: "http://localhost:4000/graphql"})
+
+const Postgraphileuri = new HttpLink({uri: "http://localhost:5000/graphql"})
+const Graphqluri = new HttpLink({ uri: "http://localhost:4000/graphql"})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: uri,
+  link: Postgraphileuri,
 })
 
 function App() {

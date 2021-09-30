@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
-import {gql, useMutation, useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
+import {CreateTimestamp, GetCategories} from "./requests";
 
 function checkTime(startTime,endTime){
     const startParsed = Date.parse(startTime);
@@ -17,43 +18,22 @@ function SetTimestamp() {
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")
     const [description, setDescription] = useState("")
-    const [category, setCategory] = useState({id: "1"});
-    const GetCategories = gql`
-    query getCategories {
-        categories {
-            id
-            name
-        }
-    }
-    `
-    const MutationTimestamp = gql`
-        mutation CreateTimestamp($input: CreateTimestamp) {
-            createTimestamp(input: $input){
-                start
-                end
-                description
-                category {
-                    name
-                }
-            }
-        }
-    `
+    const [category, setCategory] = useState( 1);
+
     const {data} = useQuery(GetCategories)
     const [categories, setCategories] = useState([])
-    const [createTimestamp] = useMutation(MutationTimestamp);
+    const [createTimestamp] = useMutation(CreateTimestamp);
 
     useEffect(() => {
         if (data) {
-            setCategories(data.categories)
+            setCategories(data.allCategories.nodes)
         }
 
     }, [data]);
 
     function selectCategory() {
         const select = document.getElementById("categories");
-        console.log(select.options[select.selectedIndex].value)
-        setCategory({category: {id: select.options[select.selectedIndex].value}});
-        console.log(category)
+        setCategory(select.options[select.selectedIndex].value);
     }
 
     return (
@@ -91,7 +71,9 @@ function SetTimestamp() {
                 </select>
                 <button onClick={() => {
                     if (checkTime(start,end)){
-                        createTimestamp({variables: {input: {start, end, description, category}}})
+                        createTimestamp(
+                            {"variables":{"start": start,"end": end,
+                                "description": description,"category": category}})
                         window.location.reload();
                     }
                 }}>Create Timestamp</button>

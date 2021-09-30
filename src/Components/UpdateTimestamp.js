@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react"
-import {gql, useMutation, useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
+import {GetCategories, UpdateTimestampMutation} from "./requests";
+import checkTime from "./checkTime";
 
 
 function UpdateTimestamp() {
@@ -7,44 +9,22 @@ function UpdateTimestamp() {
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")
     const [description, setDescription] = useState("")
-    const [category, setCategory] = useState({id: "1"});
-    const GetCategories = gql`
-        query getCategories {
-            categories {
-                id
-                name
-            }
-        }
-    `
-    const MutationTimestamp = gql`
-        mutation UpdateTimestamp($input: UpdateTimestamp!) {
-            updateTimestamp(input: $input){
-                id
-                start
-                end
-                description
-                category {
-                    name
-                }
-            }
-        }
-    `
+    const [category, setCategory] = useState(1);
+
     const {data} = useQuery(GetCategories)
     const [categories, setCategories] = useState([])
-    const [updateTimestamp] = useMutation(MutationTimestamp);
+    const [updateTimestamp] = useMutation(UpdateTimestampMutation);
 
     useEffect(() => {
         if (data) {
-            setCategories(data.categories)
+            setCategories(data.allCategories.nodes)
         }
 
     }, [data]);
 
     function selectCategory() {
         const select = document.getElementById("categories");
-        console.log(select.options[select.selectedIndex].value)
-        setCategory({category: {id: select.options[select.selectedIndex].value}});
-        console.log(category)
+        setCategory(select.options[select.selectedIndex].value);
     }
 
     return (
@@ -88,8 +68,15 @@ function UpdateTimestamp() {
                     )}
                 </select>
                 <button onClick={() => {
-                    updateTimestamp({variables: {input: {id,newStart:start, newEnd:end,
-                                newDescription: description, newCategory: category}}})
+                    if (checkTime(start,end)) {
+                        updateTimestamp({
+                            "variables": {
+                                "id": Number(id), "start": start, "end": end,
+                                "description": description, "category": category
+                            }
+                        })
+                        window.location.reload()
+                    }
                 }}>update Timestamp</button>
             </div>
         </div>
