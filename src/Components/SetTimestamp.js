@@ -80,7 +80,7 @@ function SetTimestamp() {
                 <button onClick={() => {
                     createTimestamp({variables: {input: {start, end, description, category}}})
                     window.location.reload();
-                }}>create Timestamp</button>
+                }}>Create Timestamp</button>
             </div>
         </div>
     )
