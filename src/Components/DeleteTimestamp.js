@@ -17,7 +17,7 @@ function DeleteTimestamp() {
             <h1>Delete Timestamp by Id</h1>
             <input type="number" min="1" onChange={(x)=>{
                 setId(Number(x.target.value));
-            }}></input>
+            }}/>
             <button onClick={() => {
                 deleteTimestamp({variables: {input: id}})
                 window.location.reload()

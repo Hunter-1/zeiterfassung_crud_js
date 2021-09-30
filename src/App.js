@@ -11,6 +11,7 @@ import DeleteTimestamp from "./Components/DeleteTimestamp";
 import UpdateTimestamp from "./Components/UpdateTimestamp";
 import SetCategory from "./Components/SetCategory";
 import DeleteCategory from "./Components/DeleteCategory";
+import UpdateCategory from "./Components/UpdateCategory";
 
 const uri = new HttpLink({ uri: "http://localhost:4000/graphql"})
 
@@ -21,13 +22,14 @@ const client = new ApolloClient({
 
 function App() {
   return <ApolloProvider client={client}>
-    <SetTimestamp></SetTimestamp>
-    <UpdateTimestamp></UpdateTimestamp>
-    <DeleteTimestamp></DeleteTimestamp>
-    <GetTimestamp></GetTimestamp>
-    <SetCategory></SetCategory>
-    <DeleteCategory></DeleteCategory>
-    <GetCategory></GetCategory>
+    <SetTimestamp/>
+    <UpdateTimestamp/>
+    <DeleteTimestamp/>
+    <GetTimestamp/>
+    <SetCategory/>
+    <UpdateCategory/>
+    <DeleteCategory/>
+    <GetCategory/>
   </ApolloProvider>;
 }
 

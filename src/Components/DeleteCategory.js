@@ -15,9 +15,10 @@ function DeleteCategory() {
 
     return(<div>
             <h1>Delete Category by Id</h1>
+            <label>Category Id</label>
             <input type="number" min="1" onChange={(x)=>{
                 setId(Number(x.target.value));
-            }}></input>
+            }}/>
             <button onClick={() => {
                 deleteCategory({variables: {input: id}})
                 window.location.reload()
