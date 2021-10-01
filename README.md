@@ -14,5 +14,5 @@ Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
 
 ### `npm run postgraphile`
 
-Runs the Postgraphile server ( requires setup of Postgresql database)
+Runs the Postgraphile server (requires setup of Postgresql database, dumpfile "db_zeit" available)
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
