@@ -1,18 +1,12 @@
 import React, {useState} from "react"
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
+import {UpdateCategoryById} from "./requests";
 
 function UpdateCategory() {
     const [id, setId] = useState(0)
     const [name, setName] = useState("")
 
-    const MutationCategory = gql`
-        mutation UpdateCategory($input: UpdateCategory!) {
-            updateCategory(input: $input){
-                name
-            }
-        }
-    `
-    const [updateCategory] = useMutation(MutationCategory)
+    const [updateCategory] = useMutation(UpdateCategoryById)
 
     return (
         <div>
@@ -30,7 +24,7 @@ function UpdateCategory() {
                 }}>
                 </input>
                 <button onClick={() => {
-                    updateCategory({variables: {input: {id,newName:name}}})
+                    updateCategory({variables: {id,name:name}})
                     window.location.reload();
                 }}>Update Category</button>
             </div>

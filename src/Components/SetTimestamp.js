@@ -1,48 +1,39 @@
 import React, {useEffect, useState} from "react"
-import {gql, useMutation, useQuery} from "@apollo/client";
+import {useMutation, useQuery} from "@apollo/client";
+import {CreateTimestamp, GetCategories} from "./requests";
 
+function checkTime(startTime,endTime){
+    const startParsed = Date.parse(startTime);
+    const endParsed = Date.parse(endTime);
+
+    console.log(startTime)
+    console.log(endTime)
+    console.log(startParsed)
+    console.log(endParsed)
+    console.log(startParsed < endParsed)
+    return startParsed < endParsed;
+}
 
 function SetTimestamp() {
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")
     const [description, setDescription] = useState("")
-    const [category, setCategory] = useState({id: "1"});
-    const GetCategories = gql`
-    query getCategories {
-        categories {
-            id
-            name
-        }
-    }
-    `
-    const MutationTimestamp = gql`
-        mutation CreateTimestamp($input: CreateTimestamp) {
-            createTimestamp(input: $input){
-                start
-                end
-                description
-                category {
-                    name
-                }
-            }
-        }
-    `
+    const [category, setCategory] = useState( 1);
+
     const {data} = useQuery(GetCategories)
     const [categories, setCategories] = useState([])
-    const [createTimestamp] = useMutation(MutationTimestamp);
+    const [createTimestamp] = useMutation(CreateTimestamp);
 
     useEffect(() => {
         if (data) {
-            setCategories(data.categories)
+            setCategories(data.allCategories.nodes)
         }
 
     }, [data]);
 
     function selectCategory() {
         const select = document.getElementById("categories");
-        console.log(select.options[select.selectedIndex].value)
-        setCategory({category: {id: select.options[select.selectedIndex].value}});
-        console.log(category)
+        setCategory(select.options[select.selectedIndex].value);
     }
 
     return (
@@ -52,14 +43,15 @@ function SetTimestamp() {
                 <label>
                     Start Time
                 </label>
-                <input id="start" type="datetime-local"
+                <input type="datetime-local" min="1970-00-00T00:00" max="2999-12-31T23:59"
                        onChange={(x) => {
                            setStart(x.target.value.toString());
                        }}/>
                 <label>
                     End Time
                 </label>
-                <input type="datetime-local" onChange={(x) => {
+                <input type="datetime-local" min="1970-00-00T00:00" max="2999-12-31T23:59"
+                       onChange={(x) => {
                     setEnd(x.target.value.toString());
                 }}/>
                 <br/>
@@ -78,8 +70,12 @@ function SetTimestamp() {
                     )}
                 </select>
                 <button onClick={() => {
-                    createTimestamp({variables: {input: {start, end, description, category}}})
-                    window.location.reload();
+                    if (checkTime(start,end)){
+                        createTimestamp(
+                            {"variables":{"start": start,"end": end,
+                                "description": description,"category": category}})
+                        window.location.reload();
+                    }
                 }}>Create Timestamp</button>
             </div>
         </div>

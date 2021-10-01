@@ -1,17 +1,10 @@
-import {gql, useMutation} from "@apollo/client"
+import {useMutation} from "@apollo/client"
 import React, {useState} from "react"
-
-const MutationCategory = gql`
-    mutation($input: ID!){
-        deleteCategory(id: $input) {
-            id
-        }
-    }
-`
+import {DeleteCategoryById} from "./requests"
 
 function DeleteCategory() {
     const [id, setId] = useState(0)
-    const [deleteCategory] = useMutation(MutationCategory)
+    const [deleteCategory] = useMutation(DeleteCategoryById)
 
     return(<div>
             <h1>Delete Category by Id</h1>
@@ -20,7 +13,7 @@ function DeleteCategory() {
                 setId(Number(x.target.value));
             }}/>
             <button onClick={() => {
-                deleteCategory({variables: {input: id}})
+                deleteCategory({variables: {id: Number(id)}})
                 window.location.reload()
             }}>Delete Category</button>
         </div>
