@@ -7,15 +7,19 @@ function DeleteTimestamp() {
     const [id, setId] = useState(0)
     const [deleteTimestamp] = useMutation(DeleteTimestampById)
 
-    return(<div>
+    return (<div>
             <h1>Delete Timestamp by Id</h1>
-            <input type="number" min="1" onChange={(x)=>{
-                setId(Number(x.target.value));
-            }}/>
-            <button onClick={() => {
-                deleteTimestamp({variables: {id: id}})
-                window.location.reload()
-            }}>Delete Timestamp</button>
+            <div className="form">
+                <label>Timestamp Id</label>
+                <input type="number" min="1" onChange={(x) => {
+                    setId(Number(x.target.value));
+                }}/>
+                <button onClick={() => {
+                    deleteTimestamp({variables: {id: id}})
+                    window.location.reload()
+                }}>Delete Timestamp
+                </button>
+            </div>
         </div>
     );
 }

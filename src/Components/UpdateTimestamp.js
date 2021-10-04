@@ -30,7 +30,7 @@ function UpdateTimestamp() {
     return (
         <div>
             <h1>Update Timestamp</h1>
-            <div>
+            <div className="form">
                 <label>
                     Timestamp Id
                 </label>
@@ -52,7 +52,6 @@ function UpdateTimestamp() {
                        onChange={(x) => {
                     setEnd(x.target.value.toString());
                 }}/>
-                <br/>
                 <label>
                     Description
                 </label>
@@ -77,7 +76,7 @@ function UpdateTimestamp() {
                         })
                         window.location.reload()
                     }
-                }}>update Timestamp</button>
+                }}>Update Timestamp</button>
             </div>
         </div>
     )

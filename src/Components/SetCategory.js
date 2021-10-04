@@ -10,7 +10,7 @@ function SetCategory() {
     return (
         <div>
             <h1>Create Category</h1>
-            <div>
+            <div className="form">
                 <label>
                     Category Name
                 </label>

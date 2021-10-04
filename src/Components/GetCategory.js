@@ -12,12 +12,12 @@ function GetCategory() {
         }
 
     }, [categories, data]);
-    return(<div>
+    return(<div className="list">
             <h1>Categories</h1>
             {categories.map((category)=> {
-                return <div id="categoryList" key={category.id}>
-                    <p>{category.id}</p>
-                    <p>{category.name}</p>
+                return <div className="item" key={category.id}>
+                    <p>ID: {category.id}</p>
+                    <p>Name: {category.name}</p>
                 </div>
             })}
         </div>
